@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:food_app/screens/home_screen/home_screen.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/user_provider.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -9,8 +15,36 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  late UserProvider userProvider;
+   _googleSignUp() async {
+    try {
+      // ignore: no_leading_underscores_for_local_identifiers
+      final GoogleSignIn _googleSignIn = GoogleSignIn(
+        scopes: ['email'],
+      );
+      final FirebaseAuth _auth = FirebaseAuth.instance;
+
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser!.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      final User? user = (await _auth.signInWithCredential(credential)).user;
+
+      return user;
+    } catch (e) {
+      print('Hello');
+    }
+  }
+
+  
   @override
   Widget build(BuildContext context) {
+     userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       appBar: AppBar(title: const Text('Sign In')),
       body: Container(
@@ -30,7 +64,6 @@ class _SignInState extends State<SignIn> {
           children: [
             SizedBox(
               height: 400,
-              // color: Colors.red,
               width: double.infinity,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -43,7 +76,7 @@ class _SignInState extends State<SignIn> {
                   Text(
                     'Vegi',
                     style: const TextStyle(
-                      fontSize: 50,
+                      fontSize: 55,
                       color: Colors.white,
                       shadows: [
                         BoxShadow(
@@ -67,7 +100,9 @@ class _SignInState extends State<SignIn> {
                       SignInButton(
                         Buttons.Google,
                         text: "Sign up with Google",
-                        onPressed: () {},
+                        onPressed: () {
+                          _googleSignUp().then((value)=>Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>HomeScreen()),),);
+                        },
                       ),
                     ],
                   ),

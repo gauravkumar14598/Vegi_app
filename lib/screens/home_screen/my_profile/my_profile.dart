@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/config/colors.dart';
 
+import '../drawer_side.dart';
+
 class MyProfile extends StatelessWidget {
   const MyProfile({super.key});
 
@@ -22,7 +24,7 @@ class MyProfile extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         // backgroundColor: primaryColor,
-        // drawer: DrawerSide(),
+        drawer: DrawerSide(),
         appBar: AppBar(
           title: Text(
             'My Profile',

@@ -5,26 +5,27 @@ import 'package:food_app/screens/home_screen/product_overview/product_overview.d
 class SingleProduct extends StatelessWidget {
   final String pdtImage;
   final String pdtName;
+  final int pdtPrice;
   final Function onTap;
 
   // ignore: prefer_const_constructors_in_immutables
-  SingleProduct({super.key, required this.pdtImage, required this.pdtName, required this.onTap});
+  SingleProduct({super.key, required this.pdtImage, required this.pdtName, required this.onTap, required this.pdtPrice});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 4),
-      height: 260,
+      margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+      height: 180,
       width: 160,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           GestureDetector(
             onTap: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProductOverview(pdtName: pdtName, pdtImage: pdtImage),));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProductOverview(pdtName: pdtName, pdtImage: pdtImage, pdtPrice: pdtPrice,),));
             },
             child: Expanded(child:Container(
-              height: 160,
+              height: 100,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.fill,
@@ -45,8 +46,8 @@ class SingleProduct extends StatelessWidget {
                   pdtName,
                   style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                const Text(
-                  '50₹ /50 Gram',
+                Text(
+                  '$pdtPrice /500 Gram',
                   style: TextStyle(color: Colors.grey),
                 ),
                 Row(

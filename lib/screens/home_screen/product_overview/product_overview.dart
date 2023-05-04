@@ -4,7 +4,8 @@ import 'package:food_app/config/colors.dart';
 class ProductOverview extends StatefulWidget {
   final String pdtName;
   final String pdtImage;
-  const ProductOverview({super.key, required this.pdtName, required this.pdtImage});
+  final int pdtPrice;
+  const ProductOverview({super.key, required this.pdtName, required this.pdtImage, required this.pdtPrice});
 
   @override
   State<ProductOverview> createState() => _ProductOverviewState();
@@ -82,7 +83,6 @@ class _ProductOverviewState extends State<ProductOverview> {
                 flex: 2,
                 child: SizedBox(
                   width: double.infinity,
-                  // color: Colors.blue,
                   child: Column(children: [
                     ListTile(
                       title: Text(widget.pdtName),
@@ -126,7 +126,7 @@ class _ProductOverviewState extends State<ProductOverview> {
                             ),
                           ],
                         ),
-                        const Text('₹ 50'),
+                        Text('₹ ${widget.pdtPrice}'),
                         Container(
                           height: 30,
                           width: 60,

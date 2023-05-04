@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/screens/home_screen/my_profile/my_profile.dart';
+import 'package:food_app/screens/review_cart/review_cart.dart';
 
 class DrawerSide extends StatelessWidget {
   const DrawerSide({super.key});
+  
   Widget listTile({
     required IconData icon,
     required String title,
@@ -36,7 +38,7 @@ class DrawerSide extends StatelessWidget {
                     radius: 44,
                     child: CircleAvatar(
                       backgroundColor: Colors.red,
-                      radius: 40,
+                      radius: 42,
                     ),
                   ),
                   const SizedBox(
@@ -69,7 +71,15 @@ class DrawerSide extends StatelessWidget {
             listTile(
               icon: Icons.shop,
               title: "Review Cart",
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const ReviewCart();
+                    },
+                  ),
+                );
+              },
             ),
             listTile(
               icon: Icons.person,
